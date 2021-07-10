@@ -32,18 +32,15 @@ public class TransactionServiceImpl implements TransactionService {
     public synchronized String doTransaction(TransactionRequest transactionData) {
         try {
             // Decode the base64 data to string
-//            transactionData.setTransactionType(utility.base64ToString(transactionData.getTransactionType()));
-//            transactionData.setSourceAccountNumber(utility.base64ToString(transactionData.getSourceAccountNumber()));
-//            transactionData.setAmount(utility.base64ToString(transactionData.getAmount()));
-//            transactionData
-//                    .setDestinationAccountNumber(utility.base64ToString(transactionData.getDestinationAccountNumber()));
+            transactionData.setTransactionType(utility.base64ToString(transactionData.getTransactionType()));
+            transactionData.setSourceAccountNumber(utility.base64ToString(transactionData.getSourceAccountNumber()));
+            transactionData.setAmount(utility.base64ToString(transactionData.getAmount()));
+            transactionData
+                    .setDestinationAccountNumber(utility.base64ToString(transactionData.getDestinationAccountNumber()));
 
             // find source and destination accounts by accountNumber
             Account srcAcc = accountService.findByAccountNumber(transactionData.getSourceAccountNumber());
             Account destAcc = accountService.findByAccountNumber(transactionData.getDestinationAccountNumber());
-
-            System.out.println("srcAcc: " + srcAcc);
-            System.out.print("destAcc: " + destAcc);
 
             if (srcAcc == null || destAcc == null) {
                 return Messages.INVALID_ACCOUNT_ERROR_MSG;
